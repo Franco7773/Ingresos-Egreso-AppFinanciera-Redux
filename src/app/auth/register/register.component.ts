@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -8,9 +11,13 @@ import { AuthService } from '../auth.service';
   templateUrl: './register.component.html',
   styles: []
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
-  constructor( private authService: AuthService ) { }
+  public cargando: boolean;
+  private subscription: Subscription = new Subscription();
+
+  constructor( private authService: AuthService,
+               private store: Store<AppState> ) { }
 
   public userRegister( forma: NgForm ) {
 
@@ -19,6 +26,10 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.subscription = this.store.select('ui').subscribe( ui => this.cargando = ui.isLoading );
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

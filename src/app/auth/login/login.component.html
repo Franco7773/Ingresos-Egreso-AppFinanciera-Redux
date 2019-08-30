@@ -29,7 +29,14 @@
               </div>
             </div>
             <div class="form-group">
-              <button [disabled]="f.invalid" type="submit" class="btn btn-primary submit-btn btn-block">Login</button>
+              <ng-container *ngIf="!cargando; else esperando">
+                <button [disabled]="f.invalid" type="submit" class="btn btn-primary submit-btn btn-block">Login</button>
+              </ng-container>
+              <ng-template #esperando >
+                <button [disabled]="cargando" type="submit" class="btn btn-primary submit-btn btn-block">
+                  <i class="fa fa-spin fa-sync"></i> Espere
+                </button>
+              </ng-template>
             </div>
             
             
