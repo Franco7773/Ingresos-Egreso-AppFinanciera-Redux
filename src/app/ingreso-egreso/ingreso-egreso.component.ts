@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { Subscription } from 'rxjs';
+import * as fromIE from '../ingreso-egreso/ingreso-egreso.reducer';
+
 import { ActivarLoadingAction, DesactivarLoadingAction } from '../shared/ui.actions';
 
 @Component({
@@ -22,7 +24,7 @@ export class IngresoEgresoComponent implements OnInit, OnDestroy {
   public cargando: boolean;
 
   constructor( private IEService: IngresoEgresoService,
-               private store: Store<AppState> ) { }
+               private store: Store<fromIE.AppState> ) { }
 
   ngOnInit() {
     this.loadingSubs = this.store.select('ui').subscribe( ui => this.cargando = ui.isLoading );

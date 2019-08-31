@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.reducer';
+// import { AppState } from 'src/app/app.reducer';
+import * as fromIE from '../ingreso-egreso.reducer';
+
 import { IngresoEgresoModel } from '../ingreso-egreso.model';
 import { MultiDataSet, Label } from 'ng2-charts';
 
@@ -23,7 +25,7 @@ export class EstadisticaComponent implements OnInit {
 
   protected subscription: Subscription = new Subscription();
 
-  constructor( private store: Store<AppState> ) { }
+  constructor( private store: Store<fromIE.AppState> ) { }
 
   ngOnInit() {
     this.subscription = this.store.select('ie').subscribe( ie => {
